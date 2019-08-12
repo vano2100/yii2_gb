@@ -6,7 +6,14 @@ use yii\base\Component;
 use app\models\Activity;
 
 class ActivityComponent extends Component{
-    public function createActivity(Activity &$activity): bool{
+    public $classModel;
+    
+    public function getModel()
+    {
+        return new $this->classModel();
+    } 
+    
+    public function createActivity(Activity $activity): bool{
         if($activity->validate()){
             return true;
         }
