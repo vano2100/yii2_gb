@@ -11,6 +11,11 @@ class ActivityCreateAction extends Action{
 
         if (\Yii::$app->request->isPost){
             $model->load(\Yii::$app->request->post());
+            if(\YII::$app->activity->createActivity($model)){
+                
+            } else {
+                print_r($model->getErrors());exit;
+            }
         }
         return $this->controller->render('create', ['model'=>$model]);
     }
