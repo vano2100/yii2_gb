@@ -9,7 +9,7 @@ use yii\helpers\FileHelper;
 class ActivityComponent extends Component {
 
     public $classModel;
-    private $fileCounter = 1;
+    private $fileCounter = 0;
 
     public function getModel() {
         return new $this->classModel();
@@ -50,8 +50,8 @@ class ActivityComponent extends Component {
 
     private function genFileName(\yii\web\UploadedFile $uploadedFile): string
     {
-        return time(). "($this->fileCounter)." . $uploadedFile->extension;
         $this->fileCounter++;
+        return time(). "($this->fileCounter)." . $uploadedFile->extension;
     }
 
 }
