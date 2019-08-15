@@ -11,6 +11,10 @@ use yii\helpers\Html;
         <strong><?=$model->dateStart ?></strong>
     </div>
     <div class="col-md-12">
+        <?= $model->description ?>
+    </div> 
+    <div class="col-md-12">
+        <h3>Присоединенные файлы:</h3>
         <?php if($model->files): ?>
             <?php foreach ($model->files as $image):?>
                 <img width="300px" src="/images/<?=$image ?>">
