@@ -12,29 +12,33 @@ class Activity extends Model{
     public $dateStart;
     public $isBlocked;
     public $isRepeat;
+    
     public $email;
     public $useNotification;
+    
     public $repeatedType;
+    
+    public $files;
 
-
-    public const REPEATED_TYPE = [
+        const REPEATED_TYPE = [
         1 => 'Каждый день',
         2 => 'Каждую неделю',
         3 => 'Каждый месяц'
     ];
 
-        public function beforeValidate() {
-        $date = \DateTime::createFromFormat('d.m.Y', $this->dateStart, $object);
-        if($date){
-            $this->dateStart =  $date->format('Y-m-d');
-        }
-        parent::beforeValidate();
-    }
+//    public function beforeValidate() {
+//        $date = \DateTime::createFromFormat('d.m.Y', $this->dateStart);
+//        if($date){
+//            $this->dateStart =  null;
+//        }
+//        $this->title =  null;
+//        parent::beforeValidate();
+//    }
 
     public function rules(){
         return [
             ['title', 'trim'],
-            ['title', 'required'],
+            [['title','dateStart'], 'required'],
             ['description', 'string', 'min' => 5, 'max' => 200],
             ['category', 'string'],
             ['dateStart', 'date', 'format'=> 'php:Y-m-d'],
@@ -44,6 +48,7 @@ class Activity extends Model{
                 return $model->useNotification?true:false;
             }],
             ['repeatedType', 'in', 'range' => array_keys(self::REPEATED_TYPE)],
+            [['files'], 'file', 'extensions' => ['jpg', 'png'],'maxFiles' => 0],
         ];
     }
 
@@ -55,7 +60,8 @@ class Activity extends Model{
             'dateStart' => 'Дата начала',
             'isBlocked' => 'Весь день',
             'isRepeat' => 'Повторяется',
-            'useNotification' => 'Уведомлять по email'
+            'useNotification' => 'Уведомлять по email',
+            'email' => 'Email для уведомлений'
         ];
     }
 }

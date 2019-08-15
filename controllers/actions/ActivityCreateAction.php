@@ -2,7 +2,6 @@
 
 namespace app\controllers\actions;
 
-use app\models\Activity;
 use yii\base\Action;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
@@ -20,9 +19,9 @@ class ActivityCreateAction extends Action{
                 return ActiveForm::validate($model);
             }
             if(\Yii::$app->activity->createActivity($model)){
-                
+                return $this->controller->render('view', ['model'=>$model]);
             } else {
-                print_r($model->getErrors());exit;
+                print_r($model->errors);exit;
             }
         }
         return $this->controller->render('create', ['model'=>$model]);
