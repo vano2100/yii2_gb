@@ -14,7 +14,9 @@ class m190819_115336_create_activity_table extends Migration
     {
         $this->createTable('activity', [
             'id' => $this->primaryKey(),
-            'title' => $this->string(100)
+            'title' => $this->string(100)->notNull(),
+            'dateStart' => $this->timestamp()->defaultExpression("now()"),
+            'description' => $this->text()
         ]);
     }
 
