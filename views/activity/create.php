@@ -12,7 +12,16 @@
         <?= $form->field($model, 'title'); ?>
         <?= $form->field($model, 'category'); ?>
         <?= $form->field($model, 'description')->textarea(); ?>
-        <?= $form->field($model, 'dateStart')->input('date'); ?>
+        <?= $form->field($model, 'dateStart')->widget("kartik\date\DatePicker",[
+            'name'=>'dateStart',
+            'options'=>['placeholder'=>'Выберите дату'],
+            'convertFormat'=>true,
+            'pluginOptions'=>[
+                'format'=>'yyyy-MM-dd',
+                'todayHighlight'=>true,
+            ],
+            
+        ]); ?>
         <?= $form->field($model, 'email', ['enableAjaxValidation'=>true,'enableClientValidation'=>false]); ?>
     </div>
     <div class="col-md-4">
