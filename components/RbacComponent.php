@@ -42,6 +42,7 @@ class RbacComponent extends \yii\base\Component{
         
         $manager->assign($admin, 1);
         $manager->assign($user, 2);
+        $manager->assign($user, 3);
         
         
     }
