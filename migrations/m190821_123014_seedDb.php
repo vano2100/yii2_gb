@@ -15,13 +15,13 @@ class m190821_123014_seedDb extends Migration
         $this->insert('users', [
             'id' => 1,
             'email' => 'test@test.ru',
-            'password_hash' => '123456',
+            'password_hash' => \Yii::$app->security->generatePasswordHash('123456'),
         ]);
         
         $this->insert('users', [
             'id' => 2,
             'email' => 'test2@test.ru',
-            'password_hash' => '123456',
+            'password_hash' => \Yii::$app->security->generatePasswordHash('123456'),
         ]);
         
         $this->batchInsert('activity', ['title', 'dateStart','user_id'], [
