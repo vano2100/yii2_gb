@@ -4,17 +4,10 @@ namespace app\models;
 
 use yii\base\Model;
 
-class Activity extends Model{
+class Activity extends ActivityBase{
 
-    public $title;
-    public $description;
     public $category;
-    public $dateStart;
-    public $isBlocked;
     public $isRepeat;
-    
-    public $email;
-    public $useNotification;
     
     public $repeatedType;
     
@@ -36,7 +29,7 @@ class Activity extends Model{
 //    }
 
     public function rules(){
-        return [
+        return array_merge([
             ['title', 'trim'],
             [['title','dateStart'], 'required'],
             ['description', 'string', 'min' => 5, 'max' => 200],
@@ -49,7 +42,7 @@ class Activity extends Model{
             }],
             ['repeatedType', 'in', 'range' => array_keys(self::REPEATED_TYPE)],
             [['files'], 'file', 'extensions' => ['jpg', 'png'],'maxFiles' => 0],
-        ];
+        ], parent::rules());
     }
 
     public function attributeLabels(){

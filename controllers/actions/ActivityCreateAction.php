@@ -8,6 +8,11 @@ use yii\web\Response;
 
 class ActivityCreateAction extends Action{
     public function run(){
+        
+        if(!\Yii::$app->rbac->canCreateActivity()){
+            throw new \yii\web\HttpException(403,'not auth method');
+        }
+        
         $model = \Yii::$app->activity->getModel();
 
         if (\Yii::$app->request->isPost){
@@ -19,7 +24,7 @@ class ActivityCreateAction extends Action{
                 return ActiveForm::validate($model);
             }
             if(\Yii::$app->activity->createActivity($model)){
-                return $this->controller->render('view', ['model'=>$model]);
+                return $this->controller->redirect(['/activity/view', 'id'=>$model->id]);
             } else {
                 print_r($model->errors);exit;
             }
