@@ -18,8 +18,8 @@ class ActivityComponent extends Component {
     public function createActivity(Activity &$activity): bool {
         
         $activity->files = \yii\web\UploadedFile::getInstances($activity, 'files');
-        
-        if (!$activity->validate()) {
+        $activity->user_id = \Yii::$app->user->getId();
+        if (!$activity->save()) {
             return false;
         }
         
