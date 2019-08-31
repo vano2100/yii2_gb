@@ -46,7 +46,7 @@ class Users extends UsersBase implements \yii\web\IdentityInterface
     }
 
     public static function findIdentity($id) {
-        return Users::find()->andWhere(['id'=>$id])->one();
+        return Users::find()->andWhere(['id'=>$id])->cache(10)->one();
     }
 
     public static function findIdentityByAccessToken($token, $type = null) {

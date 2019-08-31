@@ -7,7 +7,15 @@ use app\controllers\actions\ActivityCreateAction;
 
 class ActivityController extends BaseController{
     
-    public function actions(){
+    public function behaviors(): array {
+        return [
+            ['class'=> \yii\filters\PageCache::class,
+                'only'=>['view'],
+                'duration'=>30],
+            ];
+    }
+
+        public function actions(){
         return [
             'create'=>['class'=>ActivityCreateAction::class]
         ];
@@ -15,7 +23,7 @@ class ActivityController extends BaseController{
     
     public function actionView($id){
         
-        $model = \app\models\Activity::find()->andWhere(['id'=>$id])->one();
+        $model = \app\models\Activity::find()->andWhere(['id'=>$id])->cache(10)->one();
         if(!\Yii::$app->rbac->canViewEditActivity($model)){
             throw new \yii\web\HttpException(403,'not auth method');
         }
@@ -31,7 +39,7 @@ class ActivityController extends BaseController{
     }
     
     public function actionList(){
-        $activities = \app\models\Activity::find()->andWhere(['user_id'=>\Yii::$app->user->id])->all();
+        $activities = \app\models\Activity::find()->andWhere(['user_id'=>\Yii::$app->user->id])->cache(10)->all();
         
         return $this->render('list', ['activities'=>$activities]);
         

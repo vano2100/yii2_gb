@@ -28,11 +28,11 @@ class AuthComponent extends \yii\base\Component{
         return \Yii::$app->security->validatePassword($password, $password_hash);
     }
 
-        private function getUserByEmail(string $email): ?\app\models\Users{
+    private function getUserByEmail(string $email): ?\app\models\Users{
         return \app\models\Users::find()->andWhere(['email'=>$email])->one();                
     }
 
-        public function signup(\app\models\Users &$user):bool{
+    public function signup(\app\models\Users &$user):bool{
         $user->scenarioSignup();
         if (!$user->validate(['email', 'password'])){
             return false;

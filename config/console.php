@@ -4,6 +4,10 @@ $params = require __DIR__ . '/params.php';
 $db = file_exists(__DIR__.'/db_locale.php')?
         (require __DIR__.'/db_locale.php'):
         (require __DIR__ . '/db.php');
+$mail = file_exists(__DIR__. '/mail_locale.php')?
+        (require __DIR__.'/mail_locale.php'):
+        (require __DIR__ . '/mail.php');
+        
 
 $config = [
     'id' => 'basic-console',
@@ -16,6 +20,7 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+        'mailer' => $mail,
         'authManager' => [
             'class' => 'yii\rbac\DbManager'
         ],
